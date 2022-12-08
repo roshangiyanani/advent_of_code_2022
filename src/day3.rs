@@ -44,7 +44,7 @@ pub fn badge_item_type_priority_sum(input: &[String]) -> u32 {
     input
         .chunks(3)
         .map(|chunk| {
-            if let [a, b, c] = &chunk[..] {
+            if let [a, b, c] = chunk {
                 badge(a, b, c)
             } else {
                 panic!("elves must be split into groups of three")

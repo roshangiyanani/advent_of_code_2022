@@ -12,7 +12,7 @@ pub fn input_generator(input: &str) -> Vec<Vec<u32>> {
             elves.push(calories);
             calories = Vec::new();
         } else {
-            calories.push(u32::from_str_radix(line, 10).expect("could not parse calories"))
+            calories.push(line.parse().expect("could not parse calories"))
         }
     }
 
@@ -41,19 +41,12 @@ pub fn calories_held_by_top_3_elves(input: &[Vec<u32>]) -> u32 {
         min_heap.push(Reverse(sums.next().expect("must have >= 3 elves")));
     }
 
-    while let Some(sum) = sums.next() {
-        if sum < min_heap.peek().unwrap().0 {
-            ()
-        } else {
+    for sum in sums {
+        if sum >= min_heap.peek().unwrap().0 {
             min_heap.pop();
-            min_heap.push(std::cmp::Reverse(sum));
+            min_heap.push(Reverse(sum));
         }
     }
 
     min_heap.iter().map(|r| r.0).sum()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
 }

@@ -78,27 +78,27 @@ pub fn start_of_message_detector(input: &str) -> usize {
 mod tests {
     use super::*;
 
-    const input_one: &str = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
-    const input_two: &str = "bvwbjplbgvbhsrlpgdmjqwftvncz";
-    const input_three: &str = "nppdvjthqldpwncqszvftbrmjlhg";
-    const input_four: &str = "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg";
-    const input_five: &str = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw";
+    const INPUT_ONE: &str = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
+    const INPUT_TWO: &str = "bvwbjplbgvbhsrlpgdmjqwftvncz";
+    const INPUT_THREE: &str = "nppdvjthqldpwncqszvftbrmjlhg";
+    const INPUT_FOUR: &str = "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg";
+    const INPUT_FIVE: &str = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw";
 
     #[test]
     fn test_part_one() {
-        assert_eq!(start_of_packet_detector(input_one), 7, "one");
-        assert_eq!(start_of_packet_detector(input_two), 5, "two");
-        assert_eq!(start_of_packet_detector(input_three), 6, "three");
-        assert_eq!(start_of_packet_detector(input_four), 10, "four");
-        assert_eq!(start_of_packet_detector(input_five), 11, "five");
+        assert_eq!(start_of_packet_detector(INPUT_ONE), 7, "one");
+        assert_eq!(start_of_packet_detector(INPUT_TWO), 5, "two");
+        assert_eq!(start_of_packet_detector(INPUT_THREE), 6, "three");
+        assert_eq!(start_of_packet_detector(INPUT_FOUR), 10, "four");
+        assert_eq!(start_of_packet_detector(INPUT_FIVE), 11, "five");
     }
 
     #[test]
     fn test_part_two() {
-        assert_eq!(start_of_message_detector(input_one), 19, "one");
-        assert_eq!(start_of_message_detector(input_two), 23, "two");
-        assert_eq!(start_of_message_detector(input_three), 23, "three");
-        assert_eq!(start_of_message_detector(input_four), 29, "four");
-        assert_eq!(start_of_message_detector(input_five), 26, "five");
+        assert_eq!(start_of_message_detector(INPUT_ONE), 19, "one");
+        assert_eq!(start_of_message_detector(INPUT_TWO), 23, "two");
+        assert_eq!(start_of_message_detector(INPUT_THREE), 23, "three");
+        assert_eq!(start_of_message_detector(INPUT_FOUR), 29, "four");
+        assert_eq!(start_of_message_detector(INPUT_FIVE), 26, "five");
     }
 }

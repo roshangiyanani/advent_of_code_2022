@@ -64,7 +64,7 @@ impl Dir {
         self.children.get_mut(name)
     }
 
-    fn get_recursive_dir<'a, S: AsRef<str>>(&'a self, path: &[S]) -> &'a Dir {
+    fn get_recursive_dir<S: AsRef<str>>(&self, path: &[S]) -> &Dir {
         let mut current = self;
         for dir in path.iter() {
             match current.get_child(dir.as_ref()) {
@@ -251,14 +251,14 @@ pub fn parse_root_from_commands(input: &str) -> Dir {
             }
             Command::List => {
                 while let Some(line) = lines.peek() {
-                    if line.starts_with("$") {
+                    if line.starts_with('$') {
                         break;
                     }
 
                     let line = lines.next().unwrap();
                     if let Some(dir) = line.strip_prefix("dir ") {
                         current.insert_dir(dir).unwrap();
-                    } else if let Some((size, name)) = line.split_once(" ") {
+                    } else if let Some((size, name)) = line.split_once(' ') {
                         let size = size.parse::<usize>().unwrap();
                         current.insert_file(name, size).unwrap();
                     } else {
@@ -274,7 +274,7 @@ pub fn parse_root_from_commands(input: &str) -> Dir {
 
 #[aoc(day7, part1)]
 pub fn sum_folder_sizes_below_100000(root: &Dir) -> usize {
-    let (size, sum) = root.sum_folder_sizes_below::<100000>();
+    let (_, sum) = root.sum_folder_sizes_below::<100000>();
     sum
 }
 

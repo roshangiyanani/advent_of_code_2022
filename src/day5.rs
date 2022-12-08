@@ -11,7 +11,7 @@ impl Stacks {
             .last()
             .expect("stack does not contain number line")
             .trim_end()
-            .rsplit_once(" ")
+            .rsplit_once(' ')
             .expect("unexpected number line format");
 
         let num_stacks = count.parse().expect("could not parse number line length");
@@ -23,22 +23,22 @@ impl Stacks {
 
         for &line in lines.iter().rev().skip(1) {
             let mut line = line;
-            for i in 0..num_stacks {
-                if line.starts_with("[") {
-                    line = line.strip_prefix("[").unwrap();
+            for stack in stacks.iter_mut() {
+                if line.starts_with('[') {
+                    line = line.strip_prefix('[').unwrap();
 
                     let mut iter = line.chars();
                     let char = iter.next().expect("missing char");
-                    stacks[i].push(char);
+                    stack.push(char);
 
-                    line = &iter.as_str();
-                    line = &line.strip_prefix("]").expect("no closing bracket");
-                    line = &line.strip_prefix(" ").as_ref().unwrap_or(&line); // if not at end of line
+                    line = iter.as_str();
+                    line = line.strip_prefix(']').expect("no closing bracket");
+                    line = line.strip_prefix(' ').as_ref().unwrap_or(&line); // if not at end of line
                 } else {
-                    line = &line
+                    line = line
                         .strip_prefix("   ")
                         .expect("unexpected early termination");
-                    line = &line.strip_prefix(" ").as_ref().unwrap_or(&line); // if not at end of line
+                    line = line.strip_prefix(' ').as_ref().unwrap_or(&line); // if not at end of line
                 }
             }
         }
@@ -91,7 +91,7 @@ impl Rearrangement {
             .strip_prefix("move ")
             .expect("rearrangement does not start with 'move '");
         let (amount, input) = input
-            .split_once(" ")
+            .split_once(' ')
             .expect("could not find ' ' after amount");
         let amount = amount.parse().expect("could not parse amount");
 
@@ -99,7 +99,7 @@ impl Rearrangement {
             .strip_prefix("from ")
             .expect("rearrangement does not contain 'from '");
         let (origin, input) = input
-            .split_once(" ")
+            .split_once(' ')
             .expect("could not find ' ' after origin");
         let origin = origin.parse::<u8>().expect("could not parse origin") - 1u8;
 
@@ -141,7 +141,7 @@ pub fn follow_rearrangement_single_mover(input: &(Stacks, Vec<Rearrangement>)) -
     let mut stacks = stacks.clone();
 
     for rearrangement in rearrangements {
-        stacks.apply_single_mover(&rearrangement);
+        stacks.apply_single_mover(rearrangement);
     }
 
     stacks.tops()
@@ -154,7 +154,7 @@ pub fn follow_rearrangement_multiple_mover(input: &(Stacks, Vec<Rearrangement>))
 
     let mut storage = Vec::new();
     for rearrangement in rearrangements {
-        stacks.apply_multiple_mover(&rearrangement, &mut storage);
+        stacks.apply_multiple_mover(rearrangement, &mut storage);
     }
 
     stacks.tops()
@@ -164,7 +164,7 @@ pub fn follow_rearrangement_multiple_mover(input: &(Stacks, Vec<Rearrangement>))
 mod tests {
     use super::*;
 
-    const input: &str = "\
+    const INPUT: &str = "\
 \x20\x20\x20\x20[D]\x20\x20\x20\x20
 [N] [C]\x20\x20\x20\x20
 [Z] [M] [P]
@@ -177,14 +177,14 @@ move 1 from 1 to 2";
 
     #[test]
     fn test_part_one() {
-        let parsed = input_generator(input);
+        let parsed = input_generator(INPUT);
         let tops = follow_rearrangement_single_mover(&parsed);
         assert_eq!(tops, "CMZ")
     }
 
     #[test]
     fn test_part_two() {
-        let parsed = input_generator(input);
+        let parsed = input_generator(INPUT);
         let tops = follow_rearrangement_multiple_mover(&parsed);
         assert_eq!(tops, "MCD")
     }
