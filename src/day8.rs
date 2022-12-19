@@ -94,7 +94,7 @@ pub fn build_forest(input: &str) -> (Vec<u8>, usize) {
     (array, width)
 }
 
-fn print_visible(visibility: &[bool], width: usize) {
+fn _print_visible(visibility: &[bool], width: usize) {
     for chunk in visibility.chunks_exact(width) {
         for v in chunk {
             print!("{}", if *v { "T" } else { "F" });

@@ -56,7 +56,7 @@ impl Dir {
         }
     }
 
-    fn get_child(&self, name: &str) -> Option<&Node> {
+    fn _get_child(&self, name: &str) -> Option<&Node> {
         self.children.get(name)
     }
 
@@ -64,10 +64,10 @@ impl Dir {
         self.children.get_mut(name)
     }
 
-    fn get_recursive_dir<S: AsRef<str>>(&self, path: &[S]) -> &Dir {
+    fn _get_recursive_dir<S: AsRef<str>>(&self, path: &[S]) -> &Dir {
         let mut current = self;
         for dir in path.iter() {
-            match current.get_child(dir.as_ref()) {
+            match current._get_child(dir.as_ref()) {
                 Some(Node::Dir(dir)) => current = dir,
                 Some(Node::File(_)) => panic!("expected dir, not file at '{}'", dir.as_ref()),
                 None => panic!("dir '{}' must exist", dir.as_ref()),
@@ -349,9 +349,9 @@ $ ls
     fn test_folder_size() {
         let root = parse_root_from_commands(INPUT);
         assert_eq!(root.folder_size(), 48381165);
-        assert_eq!(root.get_recursive_dir(&["d",]).folder_size(), 24933642);
-        assert_eq!(root.get_recursive_dir(&["a",]).folder_size(), 94853);
-        assert_eq!(root.get_recursive_dir(&["a", "e"]).folder_size(), 584)
+        assert_eq!(root._get_recursive_dir(&["d",]).folder_size(), 24933642);
+        assert_eq!(root._get_recursive_dir(&["a",]).folder_size(), 94853);
+        assert_eq!(root._get_recursive_dir(&["a", "e"]).folder_size(), 584)
     }
 
     #[test]

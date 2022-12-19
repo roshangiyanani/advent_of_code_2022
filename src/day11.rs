@@ -1,5 +1,4 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use std::str::FromStr;
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 struct Monkey {
@@ -85,7 +84,7 @@ fn parse_monkey_notes(input: &str) -> Vec<Monkey> {
             "+" => Operation::Add(operand.parse().expect("could not parse operand")),
             "*" if operand == "old" => Operation::Square,
             "*" => Operation::Multiply(operand.parse().expect("could not parse operand")),
-            c => panic!("unexpected operation: '{}'", operation),
+            _ => panic!("unexpected operation: '{}'", operation),
         };
 
         let test = lines.next().expect("no test line");
